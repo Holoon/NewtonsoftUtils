@@ -32,7 +32,7 @@ public class MyClass
     public int? Property5 { get; set; }
 }
 
-var anObject = new MyClass
+var myObject = new MyClass
 {
     Property1 = "Arthur Dent",
     Property2 = CanBeUndefined<int>.Undefined,
@@ -44,7 +44,7 @@ var settings = new Newtonsoft.Json.JsonSerializerSettings
 {
     ContractResolver = new CanBeUndefined.CanBeUndefinedResolver()
 };
-var json = Newtonsoft.Json.JsonConvert.SerializeObject(anObject, settings);
+var json = Newtonsoft.Json.JsonConvert.SerializeObject(myObject, settings);
 ```
 
 Result:
@@ -70,7 +70,7 @@ public class MyClass
     public int? Property5 { get; set; }
 }
 
-var test = @"{
+var jSon = @"{
     ""Property1"": ""Arthur Dent"",
     ""Property3"": null,
     ""Property4"": 42,
@@ -81,7 +81,7 @@ var settings = new Newtonsoft.Json.JsonSerializerSettings
 {
     ContractResolver = new CanBeUndefined.CanBeUndefinedResolver()
 };
-var result = Newtonsoft.Json.JsonConvert.DeserializeObject<MyClass>(anObject, settings);
+var result = Newtonsoft.Json.JsonConvert.DeserializeObject<MyClass>(jSon, settings);
 
 // result.Property1 = "Arthur Dent"
 // result.Property2.IsUndefined = true
@@ -93,9 +93,50 @@ var result = Newtonsoft.Json.JsonConvert.DeserializeObject<MyClass>(anObject, se
 // result.Property5 = null
 ```
 
-## Holoon.NewtonsoftUtils.TrimmingConverter
+## Holoon.NewtonsoftUtils.Trimming
 
-TODO 
+Allows to trim by default all strings to be serialized. Use the `SpacedString` type to not trim only some properties to serialize.
+
+### Installation 
+
+```
+Install-Package Holoon.NewtonsoftUtils.Trimming
+```
+
+Nuget package: https://www.nuget.org/packages/Holoon.NewtonsoftUtils.Trimming/
+
+### Usage
+
+```c#
+public class MyClass
+{
+    public string Property1 { get; set; }
+    public SpacedString Property2 { get; set; }
+}
+
+var myObject = new MyClass
+{
+    Property1 = "   Arthur Dent   ",
+    Property2 = "   Arthur Dent   "
+}
+
+var settings = new Newtonsoft.Json.JsonSerializerSettings();
+settings.Converters.Add(new TrimmingConverter(
+	readJsonTrimmingOption: TrimmingOption.TrimEnd,
+	writeJsonTrimmingOption: TrimmingOption.TrimBoth));
+
+// Serialization
+var json = Newtonsoft.Json.JsonConvert.SerializeObject(myObject, settings);
+
+// JSON: { "Property1": "Arthur Dent", "Property2": "   Arthur Dent   " }
+
+// Deserialization
+var result = Newtonsoft.Json.JsonConvert.DeserializeObject<MyClass>(json, settings);
+
+// result.Property1 = "   Arthur Dent"
+// result.Property2 = "   Arthur Dent   "
+
+```
 
 ## Quick Links
 
