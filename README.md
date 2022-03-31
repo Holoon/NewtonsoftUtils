@@ -140,8 +140,8 @@ var result = Newtonsoft.Json.JsonConvert.DeserializeObject<MyClass>(json, settin
 
 ## Quick Links
 
-Json.NET web site: https://www.newtonsoft.com/json
-Newtonsoft.Json repository: https://github.com/JamesNK/Newtonsoft.Json
+Json.NET web site: https://www.newtonsoft.com/json  
+Newtonsoft.Json repository: https://github.com/JamesNK/Newtonsoft.Json  
 
 ## Contributing
 
