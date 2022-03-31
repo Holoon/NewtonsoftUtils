@@ -350,7 +350,8 @@ MigrationBackup/
 .ionide/
 
 # Code Rush DevExpress
-src/*/.cr
+src/.cr/*
+src/*/.cr/
 
 # For Nuget
 NugetPush.bat*
