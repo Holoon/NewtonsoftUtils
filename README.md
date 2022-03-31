@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/Holoon/Holoon.NewtonsoftUtils/raw/main/doc/logo.png" width="256" title="Newtonsoft Logo">
+  <img src="https://github.com/Holoon/NewtonsoftUtils/raw/main/doc/logo.png" width="256" title="Newtonsoft Logo">
 </p>
 
 # Holoon.NewtonsoftUtils
@@ -10,6 +10,13 @@ Utility package for Newtonsoft.Json.
 
 Allows to serialize or deserialize only a part of a object. 
 
+### Installation 
+
+```
+Install-Package Holoon.NewtonsoftUtils.CanBeUndefined
+```
+
+Nuget package: https://www.nuget.org/packages/Holoon.NewtonsoftUtils.CanBeUndefined/
 
 ### Usage
 
