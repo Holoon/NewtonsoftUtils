@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Holoon.NewtonsoftUtils.CanBeUndefined", "Holoon.NewtonsoftUtils.CanBeUndefined\Holoon.NewtonsoftUtils.CanBeUndefined.csproj", "{DFA85D17-CB94-4553-BFA1-C0FD63B25128}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Holoon.NewtonsoftUtils.Tests", "Holoon.NewtonsoftUtils.Tests\Holoon.NewtonsoftUtils.Tests.csproj", "{6A6296D8-6950-40AB-BBD3-09B41EE46D91}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DFA85D17-CB94-4553-BFA1-C0FD63B25128}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFA85D17-CB94-4553-BFA1-C0FD63B25128}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFA85D17-CB94-4553-BFA1-C0FD63B25128}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFA85D17-CB94-4553-BFA1-C0FD63B25128}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A6296D8-6950-40AB-BBD3-09B41EE46D91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A6296D8-6950-40AB-BBD3-09B41EE46D91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A6296D8-6950-40AB-BBD3-09B41EE46D91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A6296D8-6950-40AB-BBD3-09B41EE46D91}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {19905EE4-8A25-4332-BA18-9154DBAD2CB1}
+	EndGlobalSection
+EndGlobal
