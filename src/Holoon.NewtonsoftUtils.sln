@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Holoon.NewtonsoftUtils.CanB
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Holoon.NewtonsoftUtils.Tests", "Holoon.NewtonsoftUtils.Tests\Holoon.NewtonsoftUtils.Tests.csproj", "{6A6296D8-6950-40AB-BBD3-09B41EE46D91}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Holoon.NewtonsoftUtils.Trimming", "Holoon.NewtonsoftUtils.Trimming\Holoon.NewtonsoftUtils.Trimming\Holoon.NewtonsoftUtils.Trimming.csproj", "{D0837BD3-EE26-4EEC-9C5B-2A6F301881A3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{6A6296D8-6950-40AB-BBD3-09B41EE46D91}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A6296D8-6950-40AB-BBD3-09B41EE46D91}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A6296D8-6950-40AB-BBD3-09B41EE46D91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0837BD3-EE26-4EEC-9C5B-2A6F301881A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0837BD3-EE26-4EEC-9C5B-2A6F301881A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0837BD3-EE26-4EEC-9C5B-2A6F301881A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0837BD3-EE26-4EEC-9C5B-2A6F301881A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
