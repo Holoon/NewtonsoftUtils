@@ -4,7 +4,7 @@
 
 # Holoon.NewtonsoftUtils
 
-Utility package for Newtonsoft.Json.
+Utility packages for Newtonsoft.Json.
 
 ## Holoon.NewtonsoftUtils.CanBeUndefined
 
