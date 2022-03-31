@@ -8,7 +8,7 @@ Utility packages for Newtonsoft.Json.
 
 ## Holoon.NewtonsoftUtils.CanBeUndefined
 
-Allows to serialize or deserialize only a part of a object. 
+Allows to serialize or deserialize only a part of an object. 
 
 ### Installation 
 
