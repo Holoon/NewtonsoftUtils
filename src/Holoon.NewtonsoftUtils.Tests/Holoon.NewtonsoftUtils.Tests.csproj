@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Holoon.NewtonsoftUtils.CanBeUndefined\Holoon.NewtonsoftUtils.CanBeUndefined.csproj" />
+    <ProjectReference Include="..\Holoon.NewtonsoftUtils.Trimming\Holoon.NewtonsoftUtils.Trimming\Holoon.NewtonsoftUtils.Trimming.csproj" />
   </ItemGroup>
 
 </Project>
