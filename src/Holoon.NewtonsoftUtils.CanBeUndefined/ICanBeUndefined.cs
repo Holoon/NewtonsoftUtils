@@ -4,7 +4,7 @@
     {
         bool IsUndefined { get; }
 
-        //NOTE: Added because myproperty.IsUndefined == false is difficult to understand (double negative)
+        //NOTE: Added because myproperty.IsUndefined == false is difficult to understand (double negation)
         public bool IsDefined => !IsUndefined;
 
         object GetValueOrDefault();
