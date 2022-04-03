@@ -1,5 +1,7 @@
 ﻿namespace System
 {
+
+    //NOTE: Replace by an Attribute on String because configuration is constant
     public class SpacedString
     {
         private readonly string _InternalValue = null;
