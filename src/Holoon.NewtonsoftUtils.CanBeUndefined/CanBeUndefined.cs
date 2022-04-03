@@ -7,6 +7,8 @@
         private Undefined() { }
     }
 
+
+    //NOTE: Name proposal to echo Nullable : Undefinable<T>, Ignorable<T>, JSONIgnorable<T>, Undefined<T>
     public class CanBeUndefined<T> : ICanBeUndefined
     {
         //public static CanBeUndefined<T> Undefined => new(default, true);
@@ -18,6 +20,9 @@
         }
         public T Value { get; }
         public bool IsUndefined { get; }
+
+
+       
 
         public static explicit operator T(CanBeUndefined<T> value) => value.Value;
         public static implicit operator CanBeUndefined<T>(T value) => new(value, false);
@@ -32,6 +37,7 @@
 
     public static class CanBeUndefined
     {
+        //NOTE: What For ? I suggest deletion
         public static CanBeUndefined<T> Create<T>(T value) => new(value, false);
     }
 
