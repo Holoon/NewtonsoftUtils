@@ -2,7 +2,6 @@
 {
     public class CanBeUndefined<T> : ICanBeUndefined
     {
-        public static CanBeUndefined<T> Undefined => new(default, true);
         internal CanBeUndefined(T value, bool isUndefined)
         {
             IsUndefined = isUndefined;
@@ -22,13 +21,5 @@
     public static class CanBeUndefined
     {
         public static CanBeUndefined<T> Create<T>(T value) => new(value, false);
-    }
-}
-namespace System
-{
-    // NOTE: Shortcut for Holoon.NewtonsoftUtils.CanBeUndefined.CanBeUndefined<T>
-    public static class CanBeUndefined<T>
-    {
-        public static Holoon.NewtonsoftUtils.CanBeUndefined.CanBeUndefined<T> Undefined => Holoon.NewtonsoftUtils.CanBeUndefined.CanBeUndefined<T>.Undefined;
     }
 }

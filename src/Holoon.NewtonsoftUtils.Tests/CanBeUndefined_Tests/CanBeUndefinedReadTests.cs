@@ -1,4 +1,5 @@
 using System;
+using Holoon.NewtonsoftUtils.CanBeUndefined;
 using NUnit.Framework;
 
 namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
@@ -316,7 +317,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
 
             var expected = new ScalarObject
             {
-                Property1 = CanBeUndefined<int>.Undefined
+                Property1 = Undefined.Value
             };
             Assert.AreEqual(true, testObject?.Property1?.IsUndefined);
             Assert.AreEqual(expected.Property1?.Value, testObject?.Property1?.Value);
@@ -335,7 +336,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
 
             var expected = new ReferenceObject
             {
-                Property1 = CanBeUndefined<string>.Undefined
+                Property1 = Undefined.Value
             };
             Assert.AreEqual(true, testObject?.Property1?.IsUndefined);
             Assert.AreEqual(expected.Property1?.Value, testObject?.Property1?.Value);
@@ -354,7 +355,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
 
             var expected = new ClassObject
             {
-                Property1 = CanBeUndefined<OtherBasicObject>.Undefined
+                Property1 = Undefined.Value
             };
             Assert.AreEqual(true, testObject?.Property1?.IsUndefined);
             Assert.AreEqual(expected.Property1?.Value, testObject?.Property1?.Value);
@@ -371,9 +372,10 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
             };
             var testObject = Newtonsoft.Json.JsonConvert.DeserializeObject<CollectionObject>(json, settings);
 
+
             var expected = new CollectionObject
             {
-                Property1 = CanBeUndefined<System.Collections.Generic.List<int>>.Undefined
+                Property1 = CanBeUndefined.Undefined.Value
             };
             Assert.AreEqual(true, testObject?.Property1?.IsUndefined);
             Assert.AreEqual(expected.Property1?.Value, testObject?.Property1?.Value);
@@ -392,7 +394,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
 
             var expected = new ArrayScalarObject
             {
-                Property1 = CanBeUndefined<int[]>.Undefined
+                Property1 = Undefined.Value
             };
             Assert.AreEqual(true, testObject?.Property1?.IsUndefined);
             Assert.AreEqual(expected.Property1?.Value, testObject?.Property1?.Value);
@@ -411,7 +413,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
 
             var expected = new NullableObject
             {
-                Property1 = CanBeUndefined<int?>.Undefined
+                Property1 = Undefined.Value
             };
             Assert.AreEqual(true, testObject?.Property1?.IsUndefined);
             Assert.AreEqual(expected.Property1?.Value, testObject?.Property1?.Value);
