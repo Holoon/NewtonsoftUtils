@@ -1,5 +1,6 @@
 ﻿using Holoon.NewtonsoftUtils.CanBeUndefined;
 using NUnit.Framework;
+using System;
 
 namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
 {
@@ -54,6 +55,35 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
             Assert.AreEqual(false, cbu.Equals(42));
             Assert.AreEqual(false, cbu.Equals(cbu2));
             Assert.AreEqual(false, cbu.Equals(cbu3));
+        }
+
+        [Test]
+        public void CanBeUndefined_Interface_Cast()
+        {
+            var interfaceObject = (ICloneable)"Arthur Dent";
+            var testObject = new InterfaceObject
+            {
+                // NOTE: Implicit user defined conversions don't work when one of the types is an interface, so, we are force to use an explicit conversion. (From the C# specs: 6.4.1 Permitted user-defined conversions)
+                Property1 = (string)interfaceObject
+            };
+            var settings = new Newtonsoft.Json.JsonSerializerSettings
+            {
+                ContractResolver = new CanBeUndefined.CanBeUndefinedResolver()
+            };
+            var json = Newtonsoft.Json.JsonConvert.SerializeObject(testObject, settings);
+
+            Assert.AreEqual("{\"Property1\":\"Arthur Dent\"}",
+                json);
+        }
+
+        [Test]
+        public void CanBeUndefined_Implicit_Cast()
+        {
+            var testObject = new ScalarObject { Property1 = 42 };
+            int casted;
+            casted = testObject.Property1;
+
+            Assert.AreEqual(42, casted);
         }
     }
 }

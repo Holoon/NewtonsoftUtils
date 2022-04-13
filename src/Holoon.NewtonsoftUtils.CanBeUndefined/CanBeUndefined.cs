@@ -10,7 +10,7 @@
         public T Value { get; }
         public bool IsUndefined { get; }
 
-        public static explicit operator T(CanBeUndefined<T> value) => value.Value;
+        public static implicit operator T(CanBeUndefined<T> value) => value.Value;
         public static implicit operator CanBeUndefined<T>(T value) => new(value, false);
         public static implicit operator CanBeUndefined<T>(Undefined _) => new(default, true);
 
