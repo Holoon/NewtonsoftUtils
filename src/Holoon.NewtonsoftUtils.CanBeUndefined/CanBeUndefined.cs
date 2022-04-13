@@ -20,8 +20,9 @@
 #pragma warning disable IDE0046 // Use conditional expression for return
             if (obj != null && Value == null)
                 return obj is CanBeUndefined<T> other && other.Value == null && IsUndefined == other.IsUndefined;
-#pragma warning restore IDE0046 // Use conditional expression for return
+
             return Value?.Equals(obj) ?? obj?.Equals(Value) ?? true;
+#pragma warning restore IDE0046 // Use conditional expression for return
         }
         public override int GetHashCode() => Value?.GetHashCode() ?? default;
         public object GetValueOrDefault() => Value;
