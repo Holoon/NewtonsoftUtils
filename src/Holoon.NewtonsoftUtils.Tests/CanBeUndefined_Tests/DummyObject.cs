@@ -31,6 +31,10 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
     {
         public CanBeUndefined<System.Collections.Generic.List<int>> Property1 { get; set; }
     }
+    public class InterfaceObject
+    {
+        public CanBeUndefined<System.ICloneable> Property1 { get; set; }
+    }
     public class ArrayScalarObject
     {
         public CanBeUndefined<int[]> Property1 { get; set; }
