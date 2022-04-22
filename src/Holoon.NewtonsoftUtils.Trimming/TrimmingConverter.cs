@@ -24,8 +24,8 @@ namespace Holoon.NewtonsoftUtils.Trimming
 
             var value = (string)reader.Value;
 
-            return objectType == typeof(SpacedString) ? 
-                (SpacedString)value : 
+            return objectType == typeof(SpacedString) ? (SpacedString)value : 
+
                 Trim(value, ReadJsonTrimmingOption);
         }
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)

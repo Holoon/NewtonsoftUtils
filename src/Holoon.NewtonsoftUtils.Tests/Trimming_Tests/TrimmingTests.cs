@@ -23,6 +23,19 @@ namespace Holoon.NewtonsoftUtils.Tests.Trimming_Tests
             Assert.AreEqual(expectedResult, (string)testObject.Property1);
         }
 
+        [Test]
+        public void Read_SpacedString_Attribute([Values] TrimmingOption trimOption, [Values(K_TEST_TEXT)] string expectedResult)
+        {
+            var json = $"{{\"Property1\":\"{K_TEST_TEXT}\"}}";
+
+            var settings = new Newtonsoft.Json.JsonSerializerSettings();
+            settings.Converters.Add(new TrimmingConverter(trimOption, trimOption));
+
+            var testObject = Newtonsoft.Json.JsonConvert.DeserializeObject<SpacedStringAttributeObject>(json, settings);
+
+            Assert.AreEqual(expectedResult, (string)testObject.Property1);
+        }
+
         [TestCase(TrimmingOption.NoTrim, K_TEST_TEXT)]
         [TestCase(TrimmingOption.TrimBoth, K_TEST_TEXT_TRIMMED_BOTH)]
         [TestCase(TrimmingOption.TrimEnd, K_TEST_TEXT_TRIMMED_END)]
@@ -56,6 +69,23 @@ namespace Holoon.NewtonsoftUtils.Tests.Trimming_Tests
             Assert.AreEqual(expected, json);
         }
 
+        [Test]
+        public void Write_SpacedString_Attribute([Values] TrimmingOption trimOption, [Values(K_TEST_TEXT)] string expectedResult)
+        {
+            var testObject = new SpacedStringAttributeObject
+            {
+                Property1 = K_TEST_TEXT
+            };
+
+            var settings = new Newtonsoft.Json.JsonSerializerSettings();
+            settings.Converters.Add(new TrimmingConverter(trimOption, trimOption));
+
+            var json = Newtonsoft.Json.JsonConvert.SerializeObject(testObject, settings);
+
+            var expected = $"{{\"Property1\":\"{expectedResult}\"}}";
+            Assert.AreEqual(expected, json);
+        }
+
         [TestCase(TrimmingOption.NoTrim, K_TEST_TEXT)]
         [TestCase(TrimmingOption.TrimBoth, K_TEST_TEXT_TRIMMED_BOTH)]
         [TestCase(TrimmingOption.TrimEnd, K_TEST_TEXT_TRIMMED_END)]
@@ -74,6 +104,36 @@ namespace Holoon.NewtonsoftUtils.Tests.Trimming_Tests
 
             var expected = $"{{\"Property1\":\"{expectedResult}\"}}";
             Assert.AreEqual(expected, json);
+        }
+
+        [Test]
+        public void Write_WrongTypeAttribute([Values] TrimmingOption trimOption)
+        {
+            var testObject = new WrongTypeAttributeObject
+            {
+                Property1 = 42
+            };
+
+            var settings = new Newtonsoft.Json.JsonSerializerSettings();
+            settings.Converters.Add(new TrimmingConverter(trimOption, trimOption));
+
+            var json = Newtonsoft.Json.JsonConvert.SerializeObject(testObject, settings);
+
+            var expected = $"{{\"Property1\":42}}";
+            Assert.AreEqual(expected, json);
+        }
+
+        [Test]
+        public void Read_WrongTypeAttribute([Values] TrimmingOption trimOption)
+        {
+            var json = $"{{\"Property1\":42}}";
+
+            var settings = new Newtonsoft.Json.JsonSerializerSettings();
+            settings.Converters.Add(new TrimmingConverter(trimOption, trimOption));
+
+            var testObject = Newtonsoft.Json.JsonConvert.DeserializeObject<WrongTypeAttributeObject>(json, settings);
+
+            Assert.AreEqual(42, testObject.Property1);
         }
     }
 }
