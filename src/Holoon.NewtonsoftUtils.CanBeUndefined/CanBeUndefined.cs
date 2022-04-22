@@ -1,12 +1,7 @@
 ﻿namespace Holoon.NewtonsoftUtils.CanBeUndefined
 {
-
-
-    //NOTE: Name proposal to echo Nullable : Undefinable<T>, Ignorable<T>, JSONIgnorable<T>, Undefined<T>
     public class CanBeUndefined<T> : ICanBeUndefined
     {
-        //public static CanBeUndefined<T> Undefined => new(default, true);
-        
         internal CanBeUndefined(T value, bool isUndefined)
         {
             IsUndefined = isUndefined;
@@ -32,13 +27,4 @@
         public override int GetHashCode() => Value?.GetHashCode() ?? default;
         public object GetValueOrDefault() => Value;
     }
-
-
-    public static class CanBeUndefined
-    {
-        //NOTE: What For ? I suggest deletion
-        public static CanBeUndefined<T> Create<T>(T value) => new(value, false);
-    }
-
-    
 }
