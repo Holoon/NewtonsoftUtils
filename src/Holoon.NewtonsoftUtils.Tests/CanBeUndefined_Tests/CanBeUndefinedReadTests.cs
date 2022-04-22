@@ -78,7 +78,6 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
             };
             Assert.AreEqual(false, testObject?.Property1?.IsUndefined);
             Assert.AreEqual(expected.Property1?.Value, testObject?.Property1?.Value);
-            Assert.AreEqual(expected.Property1, testObject.Property1);
         }
 
         [Test]
@@ -373,10 +372,6 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
             };
             var testObject = Newtonsoft.Json.JsonConvert.DeserializeObject<CollectionObject>(json, settings);
 
-            //var expected = new CollectionObject
-            //{
-            //    Property1 = CanBeUndefined<System.Collections.Generic.List<int>>.Undefined
-            //};
 
             var expected = new CollectionObject
             {
@@ -423,9 +418,5 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
             Assert.AreEqual(true, testObject?.Property1?.IsUndefined);
             Assert.AreEqual(expected.Property1?.Value, testObject?.Property1?.Value);
         }
-
-    
-
-
     }
 }

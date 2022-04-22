@@ -362,7 +362,6 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
                 json);
         }
 
-
         [Test]
         public void Write_MultiAssign()
         {
@@ -370,7 +369,6 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
             {
                 Property1 = 42
             };
-
 
             testObject.Property1 = 43;
             testObject.Property1 = 44;
@@ -384,42 +382,6 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
 
             Assert.AreEqual("{\"Property1\":45}",
                 json);
-        }
-
-        [Test]
-        public void Write_CanBeUndefined_Null_Properties()
-        {
-            string nullString = null;
-            CanBeUndefined.CanBeUndefined<string> cbuNullString = nullString;
-            
-            Assert.AreEqual(cbuNullString.IsUndefined, false);
-            Assert.AreEqual(cbuNullString.Value, null);
-            
-            Assert.DoesNotThrow(()=>cbuNullString.GetHashCode());
-
-        }
-
-        [Test]
-        public void Write_CanBeUndefined_Array_With_Undefined_Values()
-        {
-            var testObject = new CollectionUndefinedObject
-            {
-                Property1 = new System.Collections.Generic.List<NewtonsoftUtils.CanBeUndefined.CanBeUndefined<int>>()
-            };
-
-            testObject.Property1.Value.Add(1);
-            testObject.Property1.Value.Add(Undefined.Value);
-            testObject.Property1.Value.Add(3);
-
-            var settings = new Newtonsoft.Json.JsonSerializerSettings
-            {
-                ContractResolver = new CanBeUndefined.CanBeUndefinedResolver()
-            };
-            var json = Newtonsoft.Json.JsonConvert.SerializeObject(testObject, settings);
-
-            Assert.AreEqual("{\"Property1\":[1,3]}",
-                json);
-
         }
     }
 }

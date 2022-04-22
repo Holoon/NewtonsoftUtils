@@ -31,7 +31,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
         {
             string nullString = null;
             CanBeUndefined<string> cbuNullString = nullString;
-            CanBeUndefined<string> cbuNullString2 = null; 
+            CanBeUndefined<string> cbuNullString2 = null;
             CanBeUndefined<string> cbuNullString3 = Undefined.Value;
             int? nullInt = null;
 

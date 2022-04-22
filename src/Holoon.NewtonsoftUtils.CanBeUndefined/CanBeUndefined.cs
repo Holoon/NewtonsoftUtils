@@ -1,12 +1,6 @@
 ﻿namespace Holoon.NewtonsoftUtils.CanBeUndefined
 {
 
-    public class Undefined
-    {
-        public static Undefined Value { get; } = new();
-        private Undefined() { }
-    }
-
 
     //NOTE: Name proposal to echo Nullable : Undefinable<T>, Ignorable<T>, JSONIgnorable<T>, Undefined<T>
     public class CanBeUndefined<T> : ICanBeUndefined
