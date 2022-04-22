@@ -35,7 +35,7 @@ public class MyClass
 var myObject = new MyClass
 {
     Property1 = "Arthur Dent",
-    Property2 = CanBeUndefined<int>.Undefined,
+    Property2 = Undefined.Value,
     Property3 = null,
     Property4 = 42,
     Property5 = null
