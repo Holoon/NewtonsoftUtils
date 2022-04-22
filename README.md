@@ -112,12 +112,15 @@ public class MyClass
 {
     public string Property1 { get; set; }
     public SpacedString Property2 { get; set; }
+	[Holoon.NewtonsoftUtils.Trimming.SpacedString]
+    public string Property1 { get; set; }
 }
 
 var myObject = new MyClass
 {
     Property1 = "   Arthur Dent   ",
-    Property2 = "   Arthur Dent   "
+    Property2 = "   Arthur Dent   ",
+    Property3 = "   Arthur Dent   "
 }
 
 var settings = new Newtonsoft.Json.JsonSerializerSettings();
@@ -128,15 +131,21 @@ settings.Converters.Add(new TrimmingConverter(
 // Serialization
 var json = Newtonsoft.Json.JsonConvert.SerializeObject(myObject, settings);
 
-// JSON: { "Property1": "Arthur Dent", "Property2": "   Arthur Dent   " }
+// JSON: { "Property1": "Arthur Dent", "Property2": "   Arthur Dent   ", "Property3": "   Arthur Dent   " }
 
 // Deserialization
 var result = Newtonsoft.Json.JsonConvert.DeserializeObject<MyClass>(json, settings);
 
 // result.Property1 = "   Arthur Dent"
 // result.Property2 = "   Arthur Dent   "
+// result.Property3 = "   Arthur Dent   "
 
 ```
+
+*NOTE:* 
+
+- Using `SpacedString` as a type instead of string or using `SpacedStringAttribute` on a property of type `string`. is equivalent.
+- `SpacedStringAttribute` on a property of an other type as `string` is ignored. 
 
 ## Quick Links
 
