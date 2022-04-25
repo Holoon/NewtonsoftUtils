@@ -33,7 +33,26 @@ namespace Holoon.NewtonsoftUtils.Tests.Trimming_Tests
 
             var testObject = Newtonsoft.Json.JsonConvert.DeserializeObject<SpacedStringAttributeObject>(json, settings);
 
-            Assert.AreEqual(expectedResult, (string)testObject.Property1);
+            Assert.AreEqual(expectedResult, testObject.Property1);
+        }
+
+        [TestCase(TrimmingOption.NoTrim, K_TEST_TEXT, K_TEST_TEXT)]
+        [TestCase(TrimmingOption.TrimBoth, K_TEST_TEXT, K_TEST_TEXT_TRIMMED_BOTH)]
+        [TestCase(TrimmingOption.TrimEnd, K_TEST_TEXT, K_TEST_TEXT_TRIMMED_END)]
+        [TestCase(TrimmingOption.TrimStart, K_TEST_TEXT, K_TEST_TEXT_TRIMMED_START)]
+        public void Read_SpacedString_FluentConfig([Values] TrimmingOption trimOption, [Values] string expectedResult1, [Values] string expectedResult2)
+        {
+            var json = $"{{\"Property1\":\"{K_TEST_TEXT}\",\"Property2\":\"{K_TEST_TEXT}\"}}";
+
+            var settings = new Newtonsoft.Json.JsonSerializerSettings();
+            var converter = new TrimmingConverter(trimOption, trimOption);
+            converter.StringPropertiesToNotTrim.Add<NormalStringsObject>(o => o.Property1);
+            settings.Converters.Add(converter);
+
+            var testObject = Newtonsoft.Json.JsonConvert.DeserializeObject<NormalStringsObject>(json, settings);
+
+            Assert.AreEqual(expectedResult1, testObject.Property1);
+            Assert.AreEqual(expectedResult2, testObject.Property2);
         }
 
         [TestCase(TrimmingOption.NoTrim, K_TEST_TEXT)]
@@ -66,6 +85,29 @@ namespace Holoon.NewtonsoftUtils.Tests.Trimming_Tests
             var json = Newtonsoft.Json.JsonConvert.SerializeObject(testObject, settings);
 
             var expected = $"{{\"Property1\":\"{expectedResult}\"}}";
+            Assert.AreEqual(expected, json);
+        }
+
+        [TestCase(TrimmingOption.NoTrim, K_TEST_TEXT, K_TEST_TEXT)]
+        [TestCase(TrimmingOption.TrimBoth, K_TEST_TEXT, K_TEST_TEXT_TRIMMED_BOTH)]
+        [TestCase(TrimmingOption.TrimEnd, K_TEST_TEXT, K_TEST_TEXT_TRIMMED_END)]
+        [TestCase(TrimmingOption.TrimStart, K_TEST_TEXT, K_TEST_TEXT_TRIMMED_START)]
+        public void Write_SpacedString_FluentConfig([Values] TrimmingOption trimOption, [Values] string expectedResult1, [Values] string expectedResult2)
+        {
+            var testObject = new NormalStringsObject
+            {
+                Property1 = K_TEST_TEXT,
+                Property2 = K_TEST_TEXT
+            };
+
+            var settings = new Newtonsoft.Json.JsonSerializerSettings();
+            var converter = new TrimmingConverter(trimOption, trimOption);
+            converter.StringPropertiesToNotTrim.Add<NormalStringsObject>(o => o.Property1);
+            settings.Converters.Add(converter);
+
+            var json = Newtonsoft.Json.JsonConvert.SerializeObject(testObject, settings);
+
+            var expected = $"{{\"Property1\":\"{expectedResult1}\",\"Property2\":\"{expectedResult2}\"}}";
             Assert.AreEqual(expected, json);
         }
 
