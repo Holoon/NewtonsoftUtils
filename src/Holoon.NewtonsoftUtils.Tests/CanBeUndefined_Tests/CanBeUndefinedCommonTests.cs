@@ -68,7 +68,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
             };
             var settings = new Newtonsoft.Json.JsonSerializerSettings
             {
-                ContractResolver = new CanBeUndefined.CanBeUndefinedResolver()
+                ContractResolver = new CanBeUndefinedResolver()
             };
             var json = Newtonsoft.Json.JsonConvert.SerializeObject(testObject, settings);
 
