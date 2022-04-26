@@ -418,5 +418,27 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
             Assert.AreEqual(true, testObject?.Property1?.IsUndefined);
             Assert.AreEqual(expected.Property1?.Value, testObject?.Property1?.Value);
         }
+
+        [Test]
+        public void Read_CanBeUndefined_List_Of_CanBeUndefined()
+        {
+            var json = "{\"Property1\":[42,99],\"Property2\":[42,99]}";
+
+            var settings = new Newtonsoft.Json.JsonSerializerSettings
+            {
+                ContractResolver = new CanBeUndefinedResolver()
+            };
+            var testObject = Newtonsoft.Json.JsonConvert.DeserializeObject<CollectionUndefinedObject>(json, settings);
+
+            var expected = new CollectionUndefinedObject
+            {
+                Property1 = new System.Collections.Generic.List<CanBeUndefined<int>>() { 42, 99 },
+                Property2 = new System.Collections.Generic.List<CanBeUndefined<int>>() { 42, 99 }
+            };
+
+            Assert.AreEqual(expected.Property1, testObject?.Property1);
+            Assert.AreEqual(false, testObject?.Property2?.IsUndefined);
+            Assert.AreEqual(expected.Property2?.Value, testObject?.Property2?.Value);
+        }
     }
 }

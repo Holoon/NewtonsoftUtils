@@ -2,12 +2,16 @@
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace Holoon.NewtonsoftUtils.CanBeUndefined
 {
     public class CanBeUndefinedResolver : DefaultContractResolver
     {
+        private static readonly Dictionary<Type, Type> _EnumerableTypeCache = new();
+        private static readonly Dictionary<Type, ConstructorInfo> _ConstructorCache = new();
         protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
         {
             var property = base.CreateProperty(member, memberSerialization);
@@ -15,7 +19,7 @@ namespace Holoon.NewtonsoftUtils.CanBeUndefined
             if (property?.PropertyType != null && property.PropertyType.IsAssignableTo(typeof(ICanBeUndefined)))
             {
                 property.DefaultValueHandling = DefaultValueHandling.Populate;
-                property.DefaultValue = CanBeUndefinedConverter.CreateInstanceOf(property.PropertyType, null, true);
+                property.DefaultValue = CreateInstanceOf(property.PropertyType, null, true);
                 property.ShouldDeserialize = instance => true;
                 property.ShouldSerialize = instance => 
                 {
@@ -24,8 +28,52 @@ namespace Holoon.NewtonsoftUtils.CanBeUndefined
                 };
                 property.Converter = new CanBeUndefinedConverter();
             }
+            if (property?.PropertyType != null && IsEnumerableOfCanBeUndefined(property.PropertyType))
+            {
+                property.ItemConverter = new CanBeUndefinedConverter();
+                property.Converter = new CanBeUndefinedCollectionConverter();
+            }
 
-            return property;
+            return property; 
+        }
+        private static Type GetEnumerableElementType(Type type)
+        {
+            static Type GetEnumerableType(Type i) => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IEnumerable<>) ? i.GenericTypeArguments[0] : null;
+
+            if (_EnumerableTypeCache.ContainsKey(type))
+                return _EnumerableTypeCache[type];
+
+            var enumerableType = type.IsArray ? type.GetElementType() :
+                   GetEnumerableType(type) ?? type.GetInterfaces().Select(i => GetEnumerableType(i)).FirstOrDefault(t => t != null);
+
+            _EnumerableTypeCache.Add(type, enumerableType);
+            return enumerableType;
+        }
+        private static bool IsEnumerableOfCanBeUndefined(Type type) => GetEnumerableElementType(type)?.IsAssignableTo(typeof(ICanBeUndefined)) ?? false;
+        private static IEnumerable<object> GetFilteredValues(object values)
+        {
+            return (values as System.Collections.IEnumerable)
+                ?.OfType<ICanBeUndefined>()
+                ?.Where(o => !o.IsUndefined)
+                ?.Select(o => o.GetValueOrDefault());
+        }
+        private static object CreateInstanceOf(Type objectType, object value, bool isUndefined = false)
+        {
+            ConstructorInfo constructor;
+            if (_ConstructorCache.ContainsKey(objectType))
+            {
+                constructor = _ConstructorCache[objectType];
+            }
+            else
+            {
+#pragma warning disable S3011 // Reflection should not be used to increase accessibility of classes, methods, or fields
+                constructor = objectType.GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, null, new Type[] { objectType.GetGenericArguments()?[0], typeof(bool) }, null);
+#pragma warning restore S3011 // Reflection should not be used to increase accessibility of classes, methods, or fields
+                _ConstructorCache.Add(objectType, constructor);
+            }
+
+            var instance = constructor?.Invoke(new object[] { value, isUndefined });
+            return instance;
         }
         private sealed class CanBeUndefinedConverter : JsonConverter
         {
@@ -45,8 +93,11 @@ namespace Holoon.NewtonsoftUtils.CanBeUndefined
                     return null;
 
                 var token = JToken.Load(reader);
+                if (IsEnumerableOfCanBeUndefined(realType))
+                {
+                }
+                
                 var value = token.ToObject(realType, serializer);
-
                 var instance = CreateInstanceOf(objectType, value);
                 return instance;
             }
@@ -56,17 +107,29 @@ namespace Holoon.NewtonsoftUtils.CanBeUndefined
                     throw new ArgumentException($"{nameof(value)} is not of the expected type", nameof(value));
 
                 var internalValue = canBeUndefined.GetValueOrDefault();
-                var token = internalValue == null ? JValue.CreateNull() : JToken.FromObject(internalValue);
+
+                if (IsEnumerableOfCanBeUndefined(internalValue.GetType()))
+                    internalValue = GetFilteredValues(internalValue);
+
+                var token = internalValue == null ? JValue.CreateNull() : JToken.FromObject(internalValue, serializer);
                 token.WriteTo(writer);
                 writer.Flush();
             }
-            internal static object CreateInstanceOf(Type objectType, object value, bool isUndefined = false)
+        }
+        private sealed class CanBeUndefinedCollectionConverter : JsonConverter
+        {
+            public override bool CanRead => false;
+            public override bool CanWrite => true;
+            public override bool CanConvert(Type objectType) => objectType != null && IsEnumerableOfCanBeUndefined(objectType);
+            public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer) 
+                => throw new NotImplementedException("No need to use this converter when deserializing");
+            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
             {
-#pragma warning disable S3011 // Reflection should not be used to increase accessibility of classes, methods, or fields
-                var constructor = objectType.GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, null, new Type[] { objectType.GetGenericArguments()?[0], typeof(bool) }, null);
-#pragma warning restore S3011 // Reflection should not be used to increase accessibility of classes, methods, or fields
-                var instance = constructor?.Invoke(new object[] { value, isUndefined });
-                return instance;
+                var filteredValues = GetFilteredValues(value);
+
+                var token = filteredValues == null ? JValue.CreateNull() : JToken.FromObject(filteredValues);
+                token.WriteTo(writer);
+                writer.Flush();
             }
         }
     }
