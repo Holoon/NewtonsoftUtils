@@ -26,4 +26,8 @@ namespace Holoon.NewtonsoftUtils.Tests.Trimming_Tests
         [SpacedString]
         public int Property1 { get; set; }
     }
+    public class StringNoSettableObject
+    {
+        public string Property1 => "  You can not Trim this even if you want to !  ";
+    }
 }

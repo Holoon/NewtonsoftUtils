@@ -23,7 +23,8 @@ namespace Holoon.NewtonsoftUtils.Trimming
         private IEnumerable<PropertyInfo> GetPropertiesToTrim(Type objectType) => objectType.GetProperties()
             .Where(p => p.PropertyType == typeof(string) 
             && !p.CustomAttributes.Any(a => a.AttributeType == typeof(SpacedStringAttribute))
-            && !IsInStringPropertiesToIgnore(objectType, p));
+            && !IsInStringPropertiesToIgnore(objectType, p)
+            && p.SetMethod != null);
         private bool IsInStringPropertiesToIgnore(Type objectType, PropertyInfo pInfo) => 
             StringPropertiesToNotTrim._InternalListOfPropertiesToIgnore.Any(p => p.ObjectType == objectType && pInfo.Name == p.PropertyName);
         public override bool CanConvert(Type objectType) => GetPropertiesToTrim(objectType).Any() || objectType == typeof(SpacedString);

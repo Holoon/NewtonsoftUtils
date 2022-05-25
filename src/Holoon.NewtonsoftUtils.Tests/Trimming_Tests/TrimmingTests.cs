@@ -177,5 +177,17 @@ namespace Holoon.NewtonsoftUtils.Tests.Trimming_Tests
 
             Assert.AreEqual(42, testObject.Property1);
         }
+
+        [Test]
+        public void Write_StringNoSettable([Values] TrimmingOption trimOption)
+        {
+            var settings = new Newtonsoft.Json.JsonSerializerSettings();
+            settings.Converters.Add(new TrimmingConverter(trimOption, trimOption));
+
+            var json = Newtonsoft.Json.JsonConvert.SerializeObject(new StringNoSettableObject(), settings);
+
+            var expected = $"{{\"Property1\":\"  You can not Trim this even if you want to !  \"}}";
+            Assert.AreEqual(expected, json);
+        }
     }
 }
