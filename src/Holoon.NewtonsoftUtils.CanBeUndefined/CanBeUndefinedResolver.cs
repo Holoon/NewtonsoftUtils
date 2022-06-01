@@ -95,6 +95,16 @@ namespace Holoon.NewtonsoftUtils.CanBeUndefined
                 var token = JToken.Load(reader);
                 if (IsEnumerableOfCanBeUndefined(realType))
                 {
+                    Type elementType = GetEnumerableElementType(realType);
+
+                    var elementRealType = elementType.GetGenericArguments()?[0];
+                    if (elementRealType == null)
+                        return null;
+
+                    var values = token.Select(t => t.ToObject(elementRealType, serializer));
+                    var instances = values.Select(v => CreateInstanceOf(elementType, v)).ToList(); // TODO: Pas forcément une liste, peut être n'importe quel IEnumerable<CanBeUndefined<T>> ou un CanBeUndefined<T>[]
+                    var instanceOfEnumerable = CreateInstanceOf(objectType, instances);
+                    return instanceOfEnumerable;
                 }
                 
                 var value = token.ToObject(realType, serializer);
