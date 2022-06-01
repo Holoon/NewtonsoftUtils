@@ -193,9 +193,14 @@ namespace Holoon.NewtonsoftUtils.Tests.Trimming_Tests
         [Test]
         public void Write_CamelCaseCompatibility()
         {
-            var testObject = new NormalStringObject
+            var testObject = new NormalSubStringObject
             {
-                Property1 = K_TEST_TEXT
+                Property1 = K_TEST_TEXT,
+                Sub = new NormalStringsObject
+                {
+                    Property1 = K_TEST_TEXT,
+                    Property2 = K_TEST_TEXT
+                }
             };
             
             var settings = new Newtonsoft.Json.JsonSerializerSettings();
@@ -207,7 +212,7 @@ namespace Holoon.NewtonsoftUtils.Tests.Trimming_Tests
             var json = Newtonsoft.Json.JsonConvert.SerializeObject(testObject, settings);
 
             // TODO: 2022-05-25 - BUG ! - CamelCase is incompatible with this version of TrimmingConverter
-            var expected = $"{{\"property1\":\"{K_TEST_TEXT}\"}}";
+            var expected = $"{{\"property1\":\"{K_TEST_TEXT}\",\"sub\":{{\"property1\":\"{K_TEST_TEXT}\",\"property2\":\"{K_TEST_TEXT}\"}}}}";
             Assert.AreEqual(expected, json);
         }
     }

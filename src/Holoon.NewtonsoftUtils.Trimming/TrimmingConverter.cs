@@ -47,7 +47,7 @@ namespace Holoon.NewtonsoftUtils.Trimming
         {
             if (value is SpacedString spacedString)
             {
-                JToken.FromObject((string)spacedString).WriteTo(writer); 
+                JToken.FromObject((string)spacedString, serializer).WriteTo(writer); 
                 return;
             }
 
@@ -63,7 +63,15 @@ namespace Holoon.NewtonsoftUtils.Trimming
                 if (propertyInfo.GetValue(value) is string propertyValue)
                     propertyInfo.SetValue(value, Trim(propertyValue, WriteJsonTrimmingOption));
             }
-            JToken.FromObject(value).WriteTo(writer);
+
+            JToken token;
+            lock (serializer)
+            {
+                _ = serializer.Converters.Remove(this);
+                token = JToken.FromObject(value, serializer);
+                serializer.Converters.Add(this);
+            }
+            token.WriteTo(writer);
         }
         private static string Trim(string value, TrimmingOption option) => option switch
         {
