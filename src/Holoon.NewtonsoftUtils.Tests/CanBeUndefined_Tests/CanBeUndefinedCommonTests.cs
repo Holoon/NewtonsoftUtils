@@ -31,7 +31,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
         {
             string nullString = null;
             CanBeUndefined<string> cbuNullString = nullString;
-            CanBeUndefined<string> cbuNullString2 = null; 
+            CanBeUndefined<string> cbuNullString2 = null;
             CanBeUndefined<string> cbuNullString3 = Undefined.Value;
             int? nullInt = null;
 
@@ -68,7 +68,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
             };
             var settings = new Newtonsoft.Json.JsonSerializerSettings
             {
-                ContractResolver = new CanBeUndefined.CanBeUndefinedResolver()
+                ContractResolver = new CanBeUndefinedResolver()
             };
             var json = Newtonsoft.Json.JsonConvert.SerializeObject(testObject, settings);
 

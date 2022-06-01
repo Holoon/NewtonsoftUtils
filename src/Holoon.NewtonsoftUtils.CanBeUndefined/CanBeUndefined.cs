@@ -27,8 +27,4 @@
         public override int GetHashCode() => Value?.GetHashCode() ?? default;
         public object GetValueOrDefault() => Value;
     }
-    public static class CanBeUndefined
-    {
-        public static CanBeUndefined<T> Create<T>(T value) => new(value, false);
-    }
 }

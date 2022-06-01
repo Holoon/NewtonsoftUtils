@@ -13,7 +13,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
 
             var settings = new Newtonsoft.Json.JsonSerializerSettings
             {
-                ContractResolver = new CanBeUndefined.CanBeUndefinedResolver()
+                ContractResolver = new CanBeUndefinedResolver()
             };
             var testObject = Newtonsoft.Json.JsonConvert.DeserializeObject<BasicObject>(json, settings);
 
@@ -44,7 +44,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
 
             var settings = new Newtonsoft.Json.JsonSerializerSettings
             {
-                ContractResolver = new CanBeUndefined.CanBeUndefinedResolver()
+                ContractResolver = new CanBeUndefinedResolver()
             };
             var testObject = Newtonsoft.Json.JsonConvert.DeserializeObject<BasicObject>(json, settings);
 
@@ -68,7 +68,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
 
             var settings = new Newtonsoft.Json.JsonSerializerSettings
             {
-                ContractResolver = new CanBeUndefined.CanBeUndefinedResolver()
+                ContractResolver = new CanBeUndefinedResolver()
             };
             var testObject = Newtonsoft.Json.JsonConvert.DeserializeObject<ScalarObject>(json, settings);
 
@@ -87,7 +87,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
 
             var settings = new Newtonsoft.Json.JsonSerializerSettings
             {
-                ContractResolver = new CanBeUndefined.CanBeUndefinedResolver()
+                ContractResolver = new CanBeUndefinedResolver()
             };
             var testObject = Newtonsoft.Json.JsonConvert.DeserializeObject<ReferenceObject>(json, settings);
 
@@ -106,7 +106,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
 
             var settings = new Newtonsoft.Json.JsonSerializerSettings
             {
-                ContractResolver = new CanBeUndefined.CanBeUndefinedResolver()
+                ContractResolver = new CanBeUndefinedResolver()
             };
             var testObject = Newtonsoft.Json.JsonConvert.DeserializeObject<ClassObject>(json, settings);
 
@@ -125,7 +125,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
 
             var settings = new Newtonsoft.Json.JsonSerializerSettings
             {
-                ContractResolver = new CanBeUndefined.CanBeUndefinedResolver()
+                ContractResolver = new CanBeUndefinedResolver()
             };
             var testObject = Newtonsoft.Json.JsonConvert.DeserializeObject<CollectionObject>(json, settings);
 
@@ -144,7 +144,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
 
             var settings = new Newtonsoft.Json.JsonSerializerSettings
             {
-                ContractResolver = new CanBeUndefined.CanBeUndefinedResolver()
+                ContractResolver = new CanBeUndefinedResolver()
             };
             var testObject = Newtonsoft.Json.JsonConvert.DeserializeObject<ArrayScalarObject>(json, settings);
 
@@ -163,7 +163,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
 
             var settings = new Newtonsoft.Json.JsonSerializerSettings
             {
-                ContractResolver = new CanBeUndefined.CanBeUndefinedResolver()
+                ContractResolver = new CanBeUndefinedResolver()
             };
             var testObject = Newtonsoft.Json.JsonConvert.DeserializeObject<NullableObject>(json, settings);
 
@@ -182,7 +182,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
 
             var settings = new Newtonsoft.Json.JsonSerializerSettings
             {
-                ContractResolver = new CanBeUndefined.CanBeUndefinedResolver()
+                ContractResolver = new CanBeUndefinedResolver()
             };
             var testObject = Newtonsoft.Json.JsonConvert.DeserializeObject<ScalarObject>(json, settings);
 
@@ -201,7 +201,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
 
             var settings = new Newtonsoft.Json.JsonSerializerSettings
             {
-                ContractResolver = new CanBeUndefined.CanBeUndefinedResolver()
+                ContractResolver = new CanBeUndefinedResolver()
             };
             var testObject = Newtonsoft.Json.JsonConvert.DeserializeObject<ReferenceObject>(json, settings);
 
@@ -220,7 +220,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
 
             var settings = new Newtonsoft.Json.JsonSerializerSettings
             {
-                ContractResolver = new CanBeUndefined.CanBeUndefinedResolver()
+                ContractResolver = new CanBeUndefinedResolver()
             };
             var testObject = Newtonsoft.Json.JsonConvert.DeserializeObject<ClassObject>(json, settings);
 
@@ -246,7 +246,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
 
             var settings = new Newtonsoft.Json.JsonSerializerSettings
             {
-                ContractResolver = new CanBeUndefined.CanBeUndefinedResolver()
+                ContractResolver = new CanBeUndefinedResolver()
             };
             var testObject = Newtonsoft.Json.JsonConvert.DeserializeObject<CollectionObject>(json, settings);
 
@@ -266,7 +266,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
 
             var settings = new Newtonsoft.Json.JsonSerializerSettings
             {
-                ContractResolver = new CanBeUndefined.CanBeUndefinedResolver()
+                ContractResolver = new CanBeUndefinedResolver()
             };
             var testObject = Newtonsoft.Json.JsonConvert.DeserializeObject<ArrayScalarObject>(json, settings);
             var testObject2 = Newtonsoft.Json.JsonConvert.DeserializeObject<ArrayReferenceObject>(json2, settings);
@@ -292,7 +292,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
 
             var settings = new Newtonsoft.Json.JsonSerializerSettings
             {
-                ContractResolver = new CanBeUndefined.CanBeUndefinedResolver()
+                ContractResolver = new CanBeUndefinedResolver()
             };
             var testObject = Newtonsoft.Json.JsonConvert.DeserializeObject<NullableObject>(json, settings);
 
@@ -311,7 +311,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
 
             var settings = new Newtonsoft.Json.JsonSerializerSettings
             {
-                ContractResolver = new CanBeUndefined.CanBeUndefinedResolver()
+                ContractResolver = new CanBeUndefinedResolver()
             };
             var testObject = Newtonsoft.Json.JsonConvert.DeserializeObject<ScalarObject>(json, settings);
 
@@ -330,7 +330,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
 
             var settings = new Newtonsoft.Json.JsonSerializerSettings
             {
-                ContractResolver = new CanBeUndefined.CanBeUndefinedResolver()
+                ContractResolver = new CanBeUndefinedResolver()
             };
             var testObject = Newtonsoft.Json.JsonConvert.DeserializeObject<ReferenceObject>(json, settings);
 
@@ -349,7 +349,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
 
             var settings = new Newtonsoft.Json.JsonSerializerSettings
             {
-                ContractResolver = new CanBeUndefined.CanBeUndefinedResolver()
+                ContractResolver = new CanBeUndefinedResolver()
             };
             var testObject = Newtonsoft.Json.JsonConvert.DeserializeObject<ClassObject>(json, settings);
 
@@ -368,7 +368,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
 
             var settings = new Newtonsoft.Json.JsonSerializerSettings
             {
-                ContractResolver = new CanBeUndefined.CanBeUndefinedResolver()
+                ContractResolver = new CanBeUndefinedResolver()
             };
             var testObject = Newtonsoft.Json.JsonConvert.DeserializeObject<CollectionObject>(json, settings);
 
@@ -388,7 +388,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
 
             var settings = new Newtonsoft.Json.JsonSerializerSettings
             {
-                ContractResolver = new CanBeUndefined.CanBeUndefinedResolver()
+                ContractResolver = new CanBeUndefinedResolver()
             };
             var testObject = Newtonsoft.Json.JsonConvert.DeserializeObject<ArrayScalarObject>(json, settings);
 
@@ -407,7 +407,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
 
             var settings = new Newtonsoft.Json.JsonSerializerSettings
             {
-                ContractResolver = new CanBeUndefined.CanBeUndefinedResolver()
+                ContractResolver = new CanBeUndefinedResolver()
             };
             var testObject = Newtonsoft.Json.JsonConvert.DeserializeObject<NullableObject>(json, settings);
 
@@ -417,6 +417,28 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
             };
             Assert.AreEqual(true, testObject?.Property1?.IsUndefined);
             Assert.AreEqual(expected.Property1?.Value, testObject?.Property1?.Value);
+        }
+
+        [Test]
+        public void Read_CanBeUndefined_List_Of_CanBeUndefined()
+        {
+            var json = "{\"Property1\":[42,99],\"Property2\":[42,99]}";
+
+            var settings = new Newtonsoft.Json.JsonSerializerSettings
+            {
+                ContractResolver = new CanBeUndefinedResolver()
+            };
+            var testObject = Newtonsoft.Json.JsonConvert.DeserializeObject<CollectionUndefinedObject>(json, settings);
+
+            var expected = new CollectionUndefinedObject
+            {
+                Property1 = new System.Collections.Generic.List<CanBeUndefined<int>>() { 42, 99 },
+                Property2 = new System.Collections.Generic.List<CanBeUndefined<int>>() { 42, 99 }
+            };
+
+            Assert.AreEqual(expected.Property1, testObject?.Property1);
+            Assert.AreEqual(false, testObject?.Property2?.IsUndefined);
+            Assert.AreEqual(expected.Property2?.Value, testObject?.Property2?.Value);
         }
     }
 }

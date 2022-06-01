@@ -23,7 +23,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
             };
             var settings = new Newtonsoft.Json.JsonSerializerSettings
             {
-                ContractResolver = new CanBeUndefined.CanBeUndefinedResolver()
+                ContractResolver = new CanBeUndefinedResolver()
             };
             var json = Newtonsoft.Json.JsonConvert.SerializeObject(testObject, settings);
 
@@ -43,7 +43,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
             };
             var settings = new Newtonsoft.Json.JsonSerializerSettings
             {
-                ContractResolver = new CanBeUndefined.CanBeUndefinedResolver()
+                ContractResolver = new CanBeUndefinedResolver()
             };
             var json = Newtonsoft.Json.JsonConvert.SerializeObject(testObject, settings);
 
@@ -60,7 +60,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
             };
             var settings = new Newtonsoft.Json.JsonSerializerSettings
             {
-                ContractResolver = new CanBeUndefined.CanBeUndefinedResolver()
+                ContractResolver = new CanBeUndefinedResolver()
             };
             var json = Newtonsoft.Json.JsonConvert.SerializeObject(testObject, settings);
 
@@ -77,7 +77,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
             };
             var settings = new Newtonsoft.Json.JsonSerializerSettings
             {
-                ContractResolver = new CanBeUndefined.CanBeUndefinedResolver()
+                ContractResolver = new CanBeUndefinedResolver()
             };
             var json = Newtonsoft.Json.JsonConvert.SerializeObject(testObject, settings);
 
@@ -94,7 +94,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
             };
             var settings = new Newtonsoft.Json.JsonSerializerSettings
             {
-                ContractResolver = new CanBeUndefined.CanBeUndefinedResolver()
+                ContractResolver = new CanBeUndefinedResolver()
             };
             var json = Newtonsoft.Json.JsonConvert.SerializeObject(testObject, settings);
 
@@ -111,7 +111,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
             };
             var settings = new Newtonsoft.Json.JsonSerializerSettings
             {
-                ContractResolver = new CanBeUndefined.CanBeUndefinedResolver()
+                ContractResolver = new CanBeUndefinedResolver()
             };
             var json = Newtonsoft.Json.JsonConvert.SerializeObject(testObject, settings);
 
@@ -128,7 +128,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
             };
             var settings = new Newtonsoft.Json.JsonSerializerSettings
             {
-                ContractResolver = new CanBeUndefined.CanBeUndefinedResolver()
+                ContractResolver = new CanBeUndefinedResolver()
             };
             var json = Newtonsoft.Json.JsonConvert.SerializeObject(testObject, settings);
 
@@ -145,7 +145,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
             };
             var settings = new Newtonsoft.Json.JsonSerializerSettings
             {
-                ContractResolver = new CanBeUndefined.CanBeUndefinedResolver()
+                ContractResolver = new CanBeUndefinedResolver()
             };
             var json = Newtonsoft.Json.JsonConvert.SerializeObject(testObject, settings);
 
@@ -162,7 +162,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
             };
             var settings = new Newtonsoft.Json.JsonSerializerSettings
             {
-                ContractResolver = new CanBeUndefined.CanBeUndefinedResolver()
+                ContractResolver = new CanBeUndefinedResolver()
             };
             var json = Newtonsoft.Json.JsonConvert.SerializeObject(testObject, settings);
 
@@ -179,7 +179,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
             };
             var settings = new Newtonsoft.Json.JsonSerializerSettings
             {
-                ContractResolver = new CanBeUndefined.CanBeUndefinedResolver()
+                ContractResolver = new CanBeUndefinedResolver()
             };
             var json = Newtonsoft.Json.JsonConvert.SerializeObject(testObject, settings);
 
@@ -201,7 +201,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
             };
             var settings = new Newtonsoft.Json.JsonSerializerSettings
             {
-                ContractResolver = new CanBeUndefined.CanBeUndefinedResolver()
+                ContractResolver = new CanBeUndefinedResolver()
             };
             var json = Newtonsoft.Json.JsonConvert.SerializeObject(testObject, settings);
 
@@ -218,7 +218,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
             };
             var settings = new Newtonsoft.Json.JsonSerializerSettings
             {
-                ContractResolver = new CanBeUndefined.CanBeUndefinedResolver()
+                ContractResolver = new CanBeUndefinedResolver()
             };
             var json = Newtonsoft.Json.JsonConvert.SerializeObject(testObject, settings);
 
@@ -235,7 +235,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
             };
             var settings = new Newtonsoft.Json.JsonSerializerSettings
             {
-                ContractResolver = new CanBeUndefined.CanBeUndefinedResolver()
+                ContractResolver = new CanBeUndefinedResolver()
             };
             var json = Newtonsoft.Json.JsonConvert.SerializeObject(testObject, settings);
 
@@ -252,7 +252,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
             };
             var settings = new Newtonsoft.Json.JsonSerializerSettings
             {
-                ContractResolver = new CanBeUndefined.CanBeUndefinedResolver()
+                ContractResolver = new CanBeUndefinedResolver()
             };
             var json = Newtonsoft.Json.JsonConvert.SerializeObject(testObject, settings);
 
@@ -269,7 +269,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
             };
             var settings = new Newtonsoft.Json.JsonSerializerSettings
             {
-                ContractResolver = new CanBeUndefined.CanBeUndefinedResolver()
+                ContractResolver = new CanBeUndefinedResolver()
             };
             var json = Newtonsoft.Json.JsonConvert.SerializeObject(testObject, settings);
 
@@ -286,7 +286,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
             };
             var settings = new Newtonsoft.Json.JsonSerializerSettings
             {
-                ContractResolver = new CanBeUndefined.CanBeUndefinedResolver()
+                ContractResolver = new CanBeUndefinedResolver()
             };
             var json = Newtonsoft.Json.JsonConvert.SerializeObject(testObject, settings);
 
@@ -303,7 +303,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
             };
             var settings = new Newtonsoft.Json.JsonSerializerSettings
             {
-                ContractResolver = new CanBeUndefined.CanBeUndefinedResolver()
+                ContractResolver = new CanBeUndefinedResolver()
             };
             var json = Newtonsoft.Json.JsonConvert.SerializeObject(testObject, settings);
 
@@ -320,7 +320,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
             };
             var settings = new Newtonsoft.Json.JsonSerializerSettings
             {
-                ContractResolver = new CanBeUndefined.CanBeUndefinedResolver()
+                ContractResolver = new CanBeUndefinedResolver()
             };
             var json = Newtonsoft.Json.JsonConvert.SerializeObject(testObject, settings);
 
@@ -337,7 +337,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
             };
             var settings = new Newtonsoft.Json.JsonSerializerSettings
             {
-                ContractResolver = new CanBeUndefined.CanBeUndefinedResolver()
+                ContractResolver = new CanBeUndefinedResolver()
             };
             var json = Newtonsoft.Json.JsonConvert.SerializeObject(testObject, settings);
 
@@ -354,7 +354,7 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
             };
             var settings = new Newtonsoft.Json.JsonSerializerSettings
             {
-                ContractResolver = new CanBeUndefined.CanBeUndefinedResolver()
+                ContractResolver = new CanBeUndefinedResolver()
             };
             var json = Newtonsoft.Json.JsonConvert.SerializeObject(testObject, settings);
 
@@ -376,11 +376,38 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
 
             var settings = new Newtonsoft.Json.JsonSerializerSettings
             {
-                ContractResolver = new CanBeUndefined.CanBeUndefinedResolver()
+                ContractResolver = new CanBeUndefinedResolver()
             };
             var json = Newtonsoft.Json.JsonConvert.SerializeObject(testObject, settings);
 
             Assert.AreEqual("{\"Property1\":45}",
+                json);
+        }
+
+        [Test]
+        public void Write_CanBeUndefined_Array_With_Undefined_Values()
+        {
+            var testObject = new CollectionUndefinedObject
+            {
+                Property1 = new System.Collections.Generic.List<CanBeUndefined<int>>(),
+                Property2 = new System.Collections.Generic.List<CanBeUndefined<int>>()
+            };
+
+            testObject.Property1.Add(1);
+            testObject.Property1.Add(Undefined.Value);
+            testObject.Property1.Add(3);
+
+            testObject.Property2.Value.Add(1);
+            testObject.Property2.Value.Add(Undefined.Value);
+            testObject.Property2.Value.Add(3);
+
+            var settings = new Newtonsoft.Json.JsonSerializerSettings
+            {
+                ContractResolver = new CanBeUndefinedResolver()
+            };
+            var json = Newtonsoft.Json.JsonConvert.SerializeObject(testObject, settings);
+
+            Assert.AreEqual("{\"Property1\":[1,3],\"Property2\":[1,3]}",
                 json);
         }
     }

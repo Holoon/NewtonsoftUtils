@@ -47,4 +47,9 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
     {
         public CanBeUndefined<int?> Property1 { get; set; }
     }
+    public class CollectionUndefinedObject
+    {
+        public System.Collections.Generic.List<CanBeUndefined<int>> Property1 { get; set; }
+        public CanBeUndefined<System.Collections.Generic.List<CanBeUndefined<int>>> Property2 { get; set; }
+    }
 }

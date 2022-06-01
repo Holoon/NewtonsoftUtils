@@ -95,7 +95,14 @@ var result = Newtonsoft.Json.JsonConvert.DeserializeObject<MyClass>(jSon, settin
 
 ## Holoon.NewtonsoftUtils.Trimming
 
-Allows to trim by default all strings to be serialized. Use the `SpacedString` type to not trim only some properties to serialize.
+Allows to trim all strings by default when serializing and/or deserializing an object.  
+To ignore the trim for some properties to serialize/deserialize :
+
+	- use the `SpacedString` type,  
+	- use the `SpacedStringAttribute` attribute,  
+	- or use the `StringPropertiesToNotTrim` property
+	
+(see example bellow)
 
 ### Installation 
 
@@ -112,36 +119,59 @@ public class MyClass
 {
     public string Property1 { get; set; }
     public SpacedString Property2 { get; set; }
+	[Holoon.NewtonsoftUtils.Trimming.SpacedString]
+    public string Property3 { get; set; }
+    public string Property4 { get; set; }
 }
 
 var myObject = new MyClass
 {
     Property1 = "   Arthur Dent   ",
-    Property2 = "   Arthur Dent   "
+    Property2 = "   Arthur Dent   ",
+    Property3 = "   Arthur Dent   ",
+    Property4 = "   Arthur Dent   "
 }
 
 var settings = new Newtonsoft.Json.JsonSerializerSettings();
-settings.Converters.Add(new TrimmingConverter(
+var converter = new TrimmingConverter
 	readJsonTrimmingOption: TrimmingOption.TrimEnd,
-	writeJsonTrimmingOption: TrimmingOption.TrimBoth));
+	writeJsonTrimmingOption: TrimmingOption.TrimBoth);
+converter.StringPropertiesToNotTrim.Add<MyClass>(o => o.Property4);
+settings.Converters.Add(converter);
 
 // Serialization
 var json = Newtonsoft.Json.JsonConvert.SerializeObject(myObject, settings);
 
-// JSON: { "Property1": "Arthur Dent", "Property2": "   Arthur Dent   " }
+// JSON: { "Property1": "Arthur Dent", "Property2": "   Arthur Dent   ", "Property3": "   Arthur Dent   ", "Property4": "   Arthur Dent   " }
 
 // Deserialization
 var result = Newtonsoft.Json.JsonConvert.DeserializeObject<MyClass>(json, settings);
 
 // result.Property1 = "   Arthur Dent"
 // result.Property2 = "   Arthur Dent   "
+// result.Property3 = "   Arthur Dent   "
+// result.Property4 = "   Arthur Dent   "
 
 ```
+
+*NOTE:* 
+
+- To ignore some properties to trim : 
+	- using `SpacedString` as a type instead of string, 
+	- using `SpacedStringAttribute` on a property of type `string`, 
+	- or adding a `string` properties to the `StringPropertiesToNotTrim` collection is equivalent.
+- `SpacedStringAttribute` on a property of an other type as `string` is ignored. 
+- Non `string` properties added on the `StringPropertiesToNotTrim` collection are ignored. 
 
 ## Quick Links
 
 Json.NET web site: https://www.newtonsoft.com/json  
 Newtonsoft.Json repository: https://github.com/JamesNK/Newtonsoft.Json  
+
+## TODO and known limitations
+
+- `List<CanBeUndefined<int>>` are not properly handled, for now, please use `CanBeUndefined<List<int>>` instead.
+- Trimming use a `lock` on the `serializer`. This can probably be optimized.
 
 ## Contributing
 
