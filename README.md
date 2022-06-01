@@ -168,6 +168,11 @@ var result = Newtonsoft.Json.JsonConvert.DeserializeObject<MyClass>(json, settin
 Json.NET web site: https://www.newtonsoft.com/json  
 Newtonsoft.Json repository: https://github.com/JamesNK/Newtonsoft.Json  
 
+## TODO and known limitations
+
+- `List<CanBeUndefined<int>>` are not properly handled, for now, please use `CanBeUndefined<List<int>>` instead.
+- Trimming use a `lock` on the `serializer`. This can probably be optimized.
+
 ## Contributing
 
 If you'd like to contribute, please fork the repository and use a feature branch. Pull requests are welcome. Please respect existing style in code.
