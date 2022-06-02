@@ -154,6 +154,23 @@ namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests
         }
 
         [Test]
+        public void Write_CanBeUndefined_Nullable_Is_Defined_To_Null_With_Cast()
+        {
+            var testObject = new NullableObject
+            {
+                Property1 = (int?)null
+            };
+            var settings = new Newtonsoft.Json.JsonSerializerSettings
+            {
+                ContractResolver = new CanBeUndefinedResolver()
+            };
+            var json = Newtonsoft.Json.JsonConvert.SerializeObject(testObject, settings);
+
+            Assert.AreEqual("{\"Property1\":null}",
+                json);
+        }
+
+        [Test]
         public void Write_CanBeUndefined_Scalar_Is_Defined()
         {
             var testObject = new ScalarObject

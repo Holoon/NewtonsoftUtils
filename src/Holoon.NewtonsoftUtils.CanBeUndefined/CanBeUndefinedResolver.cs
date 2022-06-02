@@ -118,7 +118,7 @@ namespace Holoon.NewtonsoftUtils.CanBeUndefined
 
                 var internalValue = canBeUndefined.GetValueOrDefault();
 
-                if (IsEnumerableOfCanBeUndefined(internalValue.GetType()))
+                if (internalValue != null && IsEnumerableOfCanBeUndefined(internalValue.GetType()))
                     internalValue = GetFilteredValues(internalValue);
 
                 var token = internalValue == null ? JValue.CreateNull() : JToken.FromObject(internalValue, serializer);
