@@ -16,6 +16,14 @@ namespace Holoon.NewtonsoftUtils.Tests.Trimming_Tests
     {
         public string Property1 { get; set; }
     }
+    public class NormalStringCtorObject
+    {
+        public NormalStringCtorObject(string property1)
+        {
+            Property1 = property1;
+        }
+        public string Property1 { get; set; }
+    }
     public class NormalSubStringObject
     {
         public string Property1 { get; set; }

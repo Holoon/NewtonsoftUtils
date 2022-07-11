@@ -33,7 +33,8 @@ namespace Holoon.NewtonsoftUtils.Trimming
             if (objectType == typeof(SpacedString))
                 return (SpacedString)(string)reader.Value;
 
-            var value = existingValue ?? Activator.CreateInstance(objectType);
+
+            var value = existingValue ?? System.Runtime.Serialization.FormatterServices.GetUninitializedObject(objectType); 
             serializer.Populate(reader, value);
             
             foreach (var propertyInfo in GetPropertiesToTrim(objectType))

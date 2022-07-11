@@ -71,6 +71,22 @@ namespace Holoon.NewtonsoftUtils.Tests.Trimming_Tests
             Assert.AreEqual(expectedResult, testObject.Property1);
         }
 
+        [TestCase(TrimmingOption.NoTrim, K_TEST_TEXT)]
+        [TestCase(TrimmingOption.TrimBoth, K_TEST_TEXT_TRIMMED_BOTH)]
+        [TestCase(TrimmingOption.TrimEnd, K_TEST_TEXT_TRIMMED_END)]
+        [TestCase(TrimmingOption.TrimStart, K_TEST_TEXT_TRIMMED_START)]
+        public void Read_NormalString_WithConstructor(TrimmingOption trimOption, string expectedResult)
+        {
+            var json = $"{{\"Property1\":\"{K_TEST_TEXT}\"}}";
+
+            var settings = new Newtonsoft.Json.JsonSerializerSettings();
+            settings.Converters.Add(new TrimmingConverter(trimOption, trimOption));
+
+            var testObject = Newtonsoft.Json.JsonConvert.DeserializeObject<NormalStringCtorObject>(json, settings);
+
+            Assert.AreEqual(expectedResult, testObject.Property1);
+        }
+
         [Test]
         public void Write_SpacedString([Values] TrimmingOption trimOption, [Values(K_TEST_TEXT)] string expectedResult)
         {
