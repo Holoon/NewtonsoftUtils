@@ -44,4 +44,8 @@ namespace Holoon.NewtonsoftUtils.Tests.Trimming_Tests
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "It is a test class.")]
         public string Property1 => "  You can not Trim this even if you want to !  ";
     }
+    public class TabObject 
+    {
+        public NormalSubStringObject[] Property1 { get; set; }
+    }
 }

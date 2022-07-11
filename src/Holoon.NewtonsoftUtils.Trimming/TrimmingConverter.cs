@@ -33,6 +33,8 @@ namespace Holoon.NewtonsoftUtils.Trimming
             if (objectType == typeof(SpacedString))
                 return (SpacedString)(string)reader.Value;
 
+            if (reader.TokenType == JsonToken.Null)
+                return null;
 
             var value = existingValue ?? System.Runtime.Serialization.FormatterServices.GetUninitializedObject(objectType); 
             serializer.Populate(reader, value);

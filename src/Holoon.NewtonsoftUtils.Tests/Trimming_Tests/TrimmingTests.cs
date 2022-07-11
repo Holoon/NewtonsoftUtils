@@ -230,5 +230,40 @@ namespace Holoon.NewtonsoftUtils.Tests.Trimming_Tests
             var expected = $"{{\"property1\":\"{K_TEST_TEXT}\",\"sub\":{{\"property1\":\"{K_TEST_TEXT}\",\"property2\":\"{K_TEST_TEXT}\"}}}}";
             Assert.AreEqual(expected, json);
         }
+
+        [TestCase(TrimmingOption.NoTrim, K_TEST_TEXT)]
+        [TestCase(TrimmingOption.TrimBoth, K_TEST_TEXT_TRIMMED_BOTH)]
+        [TestCase(TrimmingOption.TrimEnd, K_TEST_TEXT_TRIMMED_END)]
+        [TestCase(TrimmingOption.TrimStart, K_TEST_TEXT_TRIMMED_START)]
+        public void Read_NormalString_TabWithSubObjects(TrimmingOption trimOption, string expectedResult)
+        {
+            var json = "{" +
+                    "\"Property1\":[" +
+                        "{" +
+                            $"\"Property1\":\"{K_TEST_TEXT}\"," +
+                            "\"Sub\":null," +
+                        "},{" +
+                            $"\"Property1\":\"{K_TEST_TEXT}\"," +
+                            "\"Sub\":{" +
+                                $"\"Property1\":\"{K_TEST_TEXT}\"," +
+                                "\"Property2\":null" +
+                            "}," +
+                        "}]" +
+                "}";
+
+            var settings = new Newtonsoft.Json.JsonSerializerSettings();
+            settings.Converters.Add(new TrimmingConverter(trimOption, trimOption));
+
+            var testObject = Newtonsoft.Json.JsonConvert.DeserializeObject<TabObject>(json, settings);
+
+            Assert.IsNotNull(testObject.Property1);
+            Assert.AreEqual(expected: 2, testObject.Property1.Length);
+            Assert.AreEqual(expected: expectedResult, testObject.Property1[0].Property1);
+            Assert.IsNull(testObject.Property1[0].Sub);
+            Assert.AreEqual(expected: expectedResult, testObject.Property1[1].Property1);
+            Assert.IsNotNull(testObject.Property1[1].Sub);
+            Assert.AreEqual(expected: expectedResult, testObject.Property1[1].Sub.Property1);
+            Assert.IsNull(testObject.Property1[1].Sub.Property2);
+        }
     }
 }
