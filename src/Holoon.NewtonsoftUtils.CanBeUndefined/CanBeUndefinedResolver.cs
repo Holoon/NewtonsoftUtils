@@ -46,7 +46,7 @@ namespace Holoon.NewtonsoftUtils.CanBeUndefined
             var enumerableType = type.IsArray ? type.GetElementType() :
                    GetEnumerableType(type) ?? type.GetInterfaces().Select(i => GetEnumerableType(i)).FirstOrDefault(t => t != null);
 
-            _EnumerableTypeCache.Add(type, enumerableType);
+            _EnumerableTypeCache.TryAdd(type, enumerableType);
             return enumerableType;
         }
         private static bool IsEnumerableOfCanBeUndefined(Type type) => GetEnumerableElementType(type)?.IsAssignableTo(typeof(ICanBeUndefined)) ?? false;
@@ -69,7 +69,7 @@ namespace Holoon.NewtonsoftUtils.CanBeUndefined
 #pragma warning disable S3011 // Reflection should not be used to increase accessibility of classes, methods, or fields
                 constructor = objectType.GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, null, new Type[] { objectType.GetGenericArguments()?[0], typeof(bool) }, null);
 #pragma warning restore S3011 // Reflection should not be used to increase accessibility of classes, methods, or fields
-                _ConstructorCache.Add(objectType, constructor);
+                _ConstructorCache.TryAdd(objectType, constructor);
             }
 
             var instance = constructor?.Invoke(new object[] { value, isUndefined });
