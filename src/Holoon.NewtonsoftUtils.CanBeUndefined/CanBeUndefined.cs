@@ -1,6 +1,6 @@
 ﻿namespace Holoon.NewtonsoftUtils.CanBeUndefined
 {
-    public class CanBeUndefined<T> : ICanBeUndefined
+    public sealed class CanBeUndefined<T> : ICanBeUndefined
     {
         internal CanBeUndefined(T value, bool isUndefined)
         {

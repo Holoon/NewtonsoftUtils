@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -10,8 +11,8 @@ namespace Holoon.NewtonsoftUtils.CanBeUndefined
 {
     public class CanBeUndefinedResolver : DefaultContractResolver
     {
-        private static readonly Dictionary<Type, Type> _EnumerableTypeCache = new();
-        private static readonly Dictionary<Type, ConstructorInfo> _ConstructorCache = new();
+        private static readonly ConcurrentDictionary<Type, Type> _EnumerableTypeCache = new();
+        private static readonly ConcurrentDictionary<Type, ConstructorInfo> _ConstructorCache = new();
         protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
         {
             var property = base.CreateProperty(member, memberSerialization);
@@ -46,7 +47,7 @@ namespace Holoon.NewtonsoftUtils.CanBeUndefined
             var enumerableType = type.IsArray ? type.GetElementType() :
                    GetEnumerableType(type) ?? type.GetInterfaces().Select(i => GetEnumerableType(i)).FirstOrDefault(t => t != null);
 
-            _EnumerableTypeCache.TryAdd(type, enumerableType);
+            _ = _EnumerableTypeCache.TryAdd(type, enumerableType);
             return enumerableType;
         }
         private static bool IsEnumerableOfCanBeUndefined(Type type) => GetEnumerableElementType(type)?.IsAssignableTo(typeof(ICanBeUndefined)) ?? false;
@@ -69,7 +70,7 @@ namespace Holoon.NewtonsoftUtils.CanBeUndefined
 #pragma warning disable S3011 // Reflection should not be used to increase accessibility of classes, methods, or fields
                 constructor = objectType.GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, null, new Type[] { objectType.GetGenericArguments()?[0], typeof(bool) }, null);
 #pragma warning restore S3011 // Reflection should not be used to increase accessibility of classes, methods, or fields
-                _ConstructorCache.TryAdd(objectType, constructor);
+                _ = _ConstructorCache.TryAdd(objectType, constructor);
             }
 
             var instance = constructor?.Invoke(new object[] { value, isUndefined });
@@ -102,7 +103,7 @@ namespace Holoon.NewtonsoftUtils.CanBeUndefined
                         return null;
 
                     var values = token.Select(t => t.ToObject(elementRealType, serializer));
-                    var instances = values.Select(v => CreateInstanceOf(elementType, v)).ToList(); // TODO: Pas forcément une liste, peut être n'importe quel IEnumerable<CanBeUndefined<T>> ou un CanBeUndefined<T>[]
+                    var instances = values.Select(v => CreateInstanceOf(elementType, v)).ToList(); // TODO: 2022-07-12 - Not necessarily a list, can be any IEnumerable<CanBeUndefined<T>> or a CanBeUndefined<T>[]
                     var instanceOfEnumerable = CreateInstanceOf(objectType, instances);
                     return instanceOfEnumerable;
                 }
