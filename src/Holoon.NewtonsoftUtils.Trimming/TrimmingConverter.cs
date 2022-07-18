@@ -18,8 +18,8 @@ namespace Holoon.NewtonsoftUtils.Trimming
             ReadJsonTrimmingOption = readJsonTrimmingOption;
             StringPropertiesToNotTrim = new StringPropertiesToNotTrimHandlerCollection();
         }
-        public override bool CanRead => true;
-        public override bool CanWrite => true; 
+        public override bool CanRead => ReadJsonTrimmingOption != TrimmingOption.NoTrim;
+        public override bool CanWrite => true;
         private IEnumerable<PropertyInfo> GetPropertiesToTrim(Type objectType) => objectType.GetProperties()
             .Where(p => p.PropertyType == typeof(string)
             && !p.CustomAttributes.Any(a => a.AttributeType == typeof(SpacedStringAttribute))
