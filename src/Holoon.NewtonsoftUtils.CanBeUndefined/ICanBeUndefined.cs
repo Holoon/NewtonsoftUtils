@@ -1,9 +1,8 @@
-﻿namespace Holoon.NewtonsoftUtils.CanBeUndefined
+﻿namespace Holoon.NewtonsoftUtils.CanBeUndefined;
+
+internal interface ICanBeUndefined
 {
-    internal interface ICanBeUndefined
-    {
-        bool IsUndefined { get; }
-        public bool IsDefined => !IsUndefined;
-        object GetValueOrDefault();
-    }
+    bool IsUndefined { get; }
+    public bool IsDefined => !IsUndefined;
+    object GetValueOrDefault();
 }

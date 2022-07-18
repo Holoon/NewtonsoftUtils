@@ -1,8 +1,7 @@
-﻿namespace Holoon.NewtonsoftUtils.CanBeUndefined
+﻿namespace Holoon.NewtonsoftUtils.CanBeUndefined;
+
+public class Undefined
 {
-    public class Undefined
-    {
-        private Undefined() { }
-        public static Undefined Value { get; } = new();
-    }
+    private Undefined() { }
+    public static Undefined Value { get; } = new();
 }
