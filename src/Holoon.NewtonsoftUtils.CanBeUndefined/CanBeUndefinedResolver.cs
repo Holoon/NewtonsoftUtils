@@ -138,7 +138,7 @@ namespace Holoon.NewtonsoftUtils.CanBeUndefined
             {
                 var filteredValues = GetFilteredValues(value);
 
-                var token = filteredValues == null ? JValue.CreateNull() : JToken.FromObject(filteredValues);
+                var token = filteredValues == null ? JValue.CreateNull() : JToken.FromObject(filteredValues); // TODO: 2022-07-13 - Use the serializer to do the token, but avoid the recursive. 
                 token.WriteTo(writer);
                 writer.Flush();
             }

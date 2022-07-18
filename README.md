@@ -171,7 +171,6 @@ Newtonsoft.Json repository: https://github.com/JamesNK/Newtonsoft.Json
 ## TODO and known limitations
 
 - `List<CanBeUndefined<int>>` are not properly handled, for now, please use `CanBeUndefined<List<int>>` instead.
-- Trimming use a `lock` on the `serializer`. This can probably be optimized.
 
 ## Contributing
 

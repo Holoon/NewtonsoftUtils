@@ -223,11 +223,37 @@ namespace Holoon.NewtonsoftUtils.Tests.Trimming_Tests
             var resolver = new Newtonsoft.Json.Serialization.DefaultContractResolver() { NamingStrategy = new Newtonsoft.Json.Serialization.CamelCaseNamingStrategy() };
             settings.ContractResolver = resolver;
 
-            settings.Converters.Add(new TrimmingConverter(TrimmingOption.NoTrim, TrimmingOption.NoTrim));
+            settings.Converters.Add(new TrimmingConverter(TrimmingOption.TrimBoth, TrimmingOption.TrimBoth));
 
             var json = Newtonsoft.Json.JsonConvert.SerializeObject(testObject, settings);
 
-            var expected = $"{{\"property1\":\"{K_TEST_TEXT}\",\"sub\":{{\"property1\":\"{K_TEST_TEXT}\",\"property2\":\"{K_TEST_TEXT}\"}}}}";
+            var expected = $"{{\"property1\":\"{K_TEST_TEXT_TRIMMED_BOTH}\",\"sub\":{{\"property1\":\"{K_TEST_TEXT_TRIMMED_BOTH}\",\"property2\":\"{K_TEST_TEXT_TRIMMED_BOTH}\"}}}}";
+            Assert.AreEqual(expected, json);
+        }
+
+        [Test]
+        public void Write_CamelCase_And_OtherConverters_Compatibility()
+        {
+            var testObject = new NormalSubStringObject
+            {
+                Property1 = K_TEST_TEXT,
+                Sub = new NormalStringsObject
+                {
+                    Property1 = K_TEST_TEXT,
+                    Property2 = K_TEST_TEXT
+                }
+            };
+
+            var settings = new Newtonsoft.Json.JsonSerializerSettings();
+            var resolver = new Newtonsoft.Json.Serialization.DefaultContractResolver() { NamingStrategy = new Newtonsoft.Json.Serialization.CamelCaseNamingStrategy() };
+            settings.ContractResolver = resolver;
+
+            settings.Converters.Add(new TrimmingConverter(TrimmingOption.TrimBoth, TrimmingOption.TrimBoth));
+            settings.Converters.Add(new SimpleTestConverter());
+            
+            var json = Newtonsoft.Json.JsonConvert.SerializeObject(testObject, settings);
+
+            var expected = $"{{\"property1\":\"{K_TEST_TEXT_TRIMMED_BOTH + SimpleTestConverter.ADDING}\",\"sub\":{{\"property1\":\"{K_TEST_TEXT_TRIMMED_BOTH + SimpleTestConverter.ADDING}\",\"property2\":\"{K_TEST_TEXT_TRIMMED_BOTH + SimpleTestConverter.ADDING}\"}}}}";
             Assert.AreEqual(expected, json);
         }
 

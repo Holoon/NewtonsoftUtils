@@ -21,11 +21,11 @@ namespace Holoon.NewtonsoftUtils.Trimming
         public override bool CanRead => true;
         public override bool CanWrite => true; 
         private IEnumerable<PropertyInfo> GetPropertiesToTrim(Type objectType) => objectType.GetProperties()
-            .Where(p => p.PropertyType == typeof(string) 
+            .Where(p => p.PropertyType == typeof(string)
             && !p.CustomAttributes.Any(a => a.AttributeType == typeof(SpacedStringAttribute))
             && !IsInStringPropertiesToIgnore(objectType, p)
             && p.SetMethod != null);
-        private bool IsInStringPropertiesToIgnore(Type objectType, PropertyInfo pInfo) => 
+        private bool IsInStringPropertiesToIgnore(Type objectType, PropertyInfo pInfo) =>
             StringPropertiesToNotTrim._InternalListOfPropertiesToIgnore.Any(p => p.ObjectType == objectType && pInfo.Name == p.PropertyName);
         public override bool CanConvert(Type objectType) => GetPropertiesToTrim(objectType).Any() || objectType == typeof(SpacedString);
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
@@ -36,9 +36,9 @@ namespace Holoon.NewtonsoftUtils.Trimming
             if (reader.TokenType == JsonToken.Null)
                 return null;
 
-            var value = existingValue ?? System.Runtime.Serialization.FormatterServices.GetUninitializedObject(objectType); 
+            var value = existingValue ?? System.Runtime.Serialization.FormatterServices.GetUninitializedObject(objectType);
             serializer.Populate(reader, value);
-            
+
             foreach (var propertyInfo in GetPropertiesToTrim(objectType))
             {
                 if (propertyInfo.GetValue(value) is string propertyValue)
@@ -50,7 +50,7 @@ namespace Holoon.NewtonsoftUtils.Trimming
         {
             if (value is SpacedString spacedString)
             {
-                JToken.FromObject((string)spacedString, serializer).WriteTo(writer); 
+                JToken.FromObject((string)spacedString, serializer).WriteTo(writer);
                 return;
             }
 
@@ -67,13 +67,7 @@ namespace Holoon.NewtonsoftUtils.Trimming
                     propertyInfo.SetValue(value, Trim(propertyValue, WriteJsonTrimmingOption));
             }
 
-            JToken token;
-            lock (serializer)
-            {
-                _ = serializer.Converters.Remove(this);
-                token = JToken.FromObject(value, serializer);
-                serializer.Converters.Add(this);
-            }
+            JToken token = InternalUtils.SerializeIgnoreCallerConverterFromObject(value, serializer);
             token.WriteTo(writer);
         }
         private static string Trim(string value, TrimmingOption option) => option switch
