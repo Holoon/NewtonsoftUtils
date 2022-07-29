@@ -1,5 +1,6 @@
 ﻿using Holoon.NewtonsoftUtils.Trimming;
 using System;
+using System.Collections.Generic;
 
 namespace Holoon.NewtonsoftUtils.Tests.Trimming_Tests;
 
@@ -47,4 +48,17 @@ public class StringNoSettableObject
 public class TabObject 
 {
     public NormalSubStringObject[] Property1 { get; set; }
+}
+public class CollectionContainer
+{
+    public CollectionOfCollection Container { get; set; }  
+}
+public class CollectionOfCollection 
+{
+    public ICollection<CollectionOfObjectOfString> Collection1 { get; private set; } = new List<CollectionOfObjectOfString>(); 
+}
+public class CollectionOfObjectOfString 
+{
+    public string Property2 { get; set; } 
+    public ICollection<NormalStringObject> Collection2 { get; private set; } = new List<NormalStringObject>(); 
 }

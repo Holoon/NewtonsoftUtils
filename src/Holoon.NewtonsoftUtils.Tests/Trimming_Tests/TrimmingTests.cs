@@ -1,5 +1,7 @@
 ﻿using Holoon.NewtonsoftUtils.Trimming;
 using NUnit.Framework;
+using System;
+using System.Linq;
 
 namespace Holoon.NewtonsoftUtils.Tests.Trimming_Tests;
 
@@ -292,4 +294,107 @@ public class TrimmingTests
         Assert.IsNull(testObject.Property1[1].Sub.Property2);
     }
 
+    //[TestCase(TrimmingOption.NoTrim, K_TEST_TEXT)]
+    //[TestCase(TrimmingOption.TrimBoth, K_TEST_TEXT_TRIMMED_BOTH)]
+    [TestCase(TrimmingOption.TrimEnd, K_TEST_TEXT_TRIMMED_END)]
+    //[TestCase(TrimmingOption.TrimStart, K_TEST_TEXT_TRIMMED_START)]
+    public void Read_MultiplesCollection_PrivateSetter(TrimmingOption trimOption, string expectedResult)
+    {
+        var json = $@"
+{{
+  ""Container"": {{
+    ""Collection1"": [
+      {{
+        ""Property2"": ""{K_TEST_TEXT}"",
+        ""Collection2"": [
+          {{
+            ""Property1"": ""{K_TEST_TEXT}""
+          }}
+        ]
+      }},
+      {{
+        ""Property2"": ""{K_TEST_TEXT}"",
+        ""Collection2"": [
+          {{
+            ""Property1"": ""{K_TEST_TEXT}""
+          }},
+		  {{
+            ""Property1"": ""{K_TEST_TEXT}""
+          }}
+        ]
+      }}
+    ]
+  }}
+}}";
+
+        var settings = new Newtonsoft.Json.JsonSerializerSettings();
+        settings.Converters.Add(new TrimmingConverter(trimOption, trimOption));
+
+        var testObject = Newtonsoft.Json.JsonConvert.DeserializeObject<CollectionContainer>(json, settings);
+
+        Assert.IsNotNull(testObject.Container);
+        var firstCollection = testObject.Container.Collection1;
+        Assert.IsNotNull(firstCollection);
+        Assert.AreEqual(expected: 2, firstCollection.Count);
+
+        Assert.AreEqual(expected: expectedResult, firstCollection.First().Property2);
+        var firstElementSecondCollection = firstCollection.First().Collection2;
+        Assert.IsNotNull(firstElementSecondCollection);
+        Assert.AreEqual(expected: 1, firstElementSecondCollection.Count);
+        Assert.AreEqual(expected: expectedResult, firstElementSecondCollection.First().Property1);
+
+        Assert.AreEqual(expected: expectedResult, firstCollection.Skip(1).First().Property2);
+        var secondElementSecondCollection = firstCollection.Skip(1).First().Collection2;
+        Assert.IsNotNull(secondElementSecondCollection);
+        Assert.AreEqual(expected: 2, secondElementSecondCollection.Count);
+        Assert.AreEqual(expected: expectedResult, secondElementSecondCollection.First().Property1);
+        Assert.AreEqual(expected: expectedResult, secondElementSecondCollection.Skip(1).First().Property1);
+    }
+
+
+    [Test]
+    public void GetUninitializedObject()
+    {
+        var json = $@"{{
+            ""Property2"": ""{K_TEST_TEXT}"",
+            ""Collection2"": [
+              {{
+                ""Property1"": ""{K_TEST_TEXT}""
+              }},
+		      {{
+                ""Property1"": ""{K_TEST_TEXT}""
+              }}
+            ]
+          }}";
+
+        Newtonsoft.Json.JsonSerializer serializer = new Newtonsoft.Json.JsonSerializer();
+        var pop1 = new Class1();
+        serializer.Populate(new Newtonsoft.Json.JsonTextReader(new System.IO.StringReader(json)), pop1);
+
+        var pop2 = System.Runtime.Serialization.FormatterServices.GetUninitializedObject(typeof(Class1)) as Class1;
+        // TODO: 2022-08-29 - BUG TO FIX - By calling Init, the collection is correctly populate by Newtonsoft. 
+        // Search to init object with GetUninitializedObject and call ctor and prop initializers.
+        //pop2.Init();
+        serializer.Populate(new Newtonsoft.Json.JsonTextReader(new System.IO.StringReader(json)), pop2);
+
+        Assert.IsNotNull(pop2.Collection2);
+        Assert.AreEqual(2, pop2.Collection2.Count);
+        Assert.IsNotNull( pop2.Collection2.First());
+        Assert.IsNotNull( pop2.Collection2.Skip(1).First());
+        Assert.AreEqual(K_TEST_TEXT, pop2.Collection2.First().Property1);
+        Assert.AreEqual(K_TEST_TEXT, pop2.Collection2.Skip(1).First().Property1);
+    }
+    public class Class1 
+    {
+        public System.Collections.Generic.ICollection<Class2> Collection2 { get; private set; } = new System.Collections.Generic.List<Class2>();
+        public string Property2 { get; set; }
+        public void Init()
+        {
+            Collection2 = new System.Collections.Generic.List<Class2>();
+        }
+    }
+    public class Class2
+    {
+        public string Property1 { get; set; }
+    }
 }
