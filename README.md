@@ -119,7 +119,7 @@ public class MyClass
 {
     public string Property1 { get; set; }
     public SpacedString Property2 { get; set; }
-	[Holoon.NewtonsoftUtils.Trimming.SpacedString]
+    [Holoon.NewtonsoftUtils.Trimming.SpacedString]
     public string Property3 { get; set; }
     public string Property4 { get; set; }
 }
