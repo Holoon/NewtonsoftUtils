@@ -36,7 +36,7 @@ public class TrimmingConverter : JsonConverter
         if (reader.TokenType == JsonToken.Null)
             return null;
 
-        var value = existingValue ?? System.Runtime.Serialization.FormatterServices.GetUninitializedObject(objectType);
+        var value = existingValue ?? InstanceCreator.Create(objectType);
         serializer.Populate(reader, value);
 
         foreach (var propertyInfo in GetPropertiesToTrim(objectType))

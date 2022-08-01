@@ -17,6 +17,14 @@ public class NormalStringObject
 {
     public string Property1 { get; set; }
 }
+
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Major Bug", "S3453:Classes should not have only \"private\" constructors", Justification = "Unit Test Class")]
+[System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0079", Justification = "False positive")]
+public class PrivateCtorStringObject
+{
+    private PrivateCtorStringObject() { }
+    public string Property1 { get; set; }
+}
 public class NormalStringCtorObject
 {
     public NormalStringCtorObject(string property1)
