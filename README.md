@@ -98,9 +98,9 @@ var result = Newtonsoft.Json.JsonConvert.DeserializeObject<MyClass>(jSon, settin
 Allows to trim all strings by default when serializing and/or deserializing an object.  
 To ignore the trim for some properties to serialize/deserialize :
 
-	- use the `SpacedString` type,  
-	- use the `SpacedStringAttribute` attribute,  
-	- or use the `StringPropertiesToNotTrim` property
+- use the `SpacedString` type,  
+- use the `SpacedStringAttribute` attribute,  
+- or use the `StringPropertiesToNotTrim` property
 	
 (see example bellow)
 
