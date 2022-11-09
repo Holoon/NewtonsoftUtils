@@ -1,6 +1,7 @@
 ﻿using Holoon.NewtonsoftUtils.CanBeUndefined;
 using NUnit.Framework;
 using System;
+using System.Linq;
 
 namespace Holoon.NewtonsoftUtils.Tests.CanBeUndefined_Tests;
 
@@ -84,5 +85,38 @@ public class CanBeUndefinedCommonTests
         casted = testObject.Property1;
 
         Assert.AreEqual(42, casted);
+    }
+
+    [Test]
+    public void CanBeUndefined_ImplicitCast_BetweenCanBeUndefinedObjects()
+    {
+        var testObject1 = new ScalarObject { Property1 = 42 };
+        var testObject2 = new ScalarObject { Property1 = 42 };
+        var testObject3 = new ScalarObject { Property1 = Undefined.Value };
+
+        Assert.AreNotEqual(testObject3.Property1, testObject1.Property1);
+        Assert.AreEqual(testObject2.Property1, testObject1.Property1);
+    }
+
+    [Test]
+    public void CanBeUndefined_ImplicitCast_Dictionary()
+    {
+        var testObject1 = new ScalarObject { Property1 = 42 };
+        var testObject2 = new ScalarObject { Property1 = 43 };
+        var dictionary = new ScalarObject[] { testObject1, testObject2 }.ToDictionary(x => x.Property1);
+
+        Assert.AreEqual(testObject1, dictionary[42]);
+    }
+
+    [Test]
+    public void CanBeUndefined_ImplicitCast_Lookup()
+    {
+        var testObject1 = new ScalarObject { Property1 = 42 };
+        var testObject2 = new ScalarObject { Property1 = 43 };
+        var testObject3 = new ScalarObject { Property1 = 43 };
+        var lookup = new ScalarObject[] { testObject1, testObject2, testObject3 }.ToLookup(x => x.Property1);
+
+        Assert.AreEqual(testObject2, lookup[43]?.FirstOrDefault());
+        Assert.AreEqual(testObject3, lookup[43]?.LastOrDefault());
     }
 }

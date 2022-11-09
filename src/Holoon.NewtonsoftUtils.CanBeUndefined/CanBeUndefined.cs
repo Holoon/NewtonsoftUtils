@@ -21,6 +21,9 @@ public sealed class CanBeUndefined<T> : ICanBeUndefined
         if (obj != null && Value == null)
             return obj is CanBeUndefined<T> other && other.Value == null && IsUndefined == other.IsUndefined;
 
+        if (obj is CanBeUndefined<T> otherObj)
+            return Value?.Equals(otherObj.Value) ?? otherObj.Value?.Equals(Value) ?? true;
+
         return Value?.Equals(obj) ?? obj?.Equals(Value) ?? true;
 #pragma warning restore IDE0046 // Use conditional expression for return
     }
