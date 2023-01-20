@@ -171,7 +171,9 @@ Newtonsoft.Json repository: https://github.com/JamesNK/Newtonsoft.Json
 ## TODO and known limitations
 
 - `List<CanBeUndefined<int>>` are not properly handled, for now, please use `CanBeUndefined<List<int>>` instead.
-
+- Because the `Equals` of `CanBeUndefined` is override to return `CanBeUndefined<MyClass> == MyClass`, the `TrimmingConverter` think there is a "Self referencing loop detected" when trimming a `CanBeUndefined<MyClass>`.
+	- To work around the problem, you can add `ReferenceLoopHandling = ReferenceLoopHandling.Serialize;` in the serializer settings. 
+	
 ## Contributing
 
 If you'd like to contribute, please fork the repository and use a feature branch. Pull requests are welcome. Please respect existing style in code.
